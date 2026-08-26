@@ -1,0 +1,15 @@
+file_format: "1"
+id: lily58_rgb
+name: Lily58 RGB
+type: shield
+url: https://github.com/kata0510/Lily58
+requires: [pro_micro]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+  - studio
+  - underglow
+siblings:
+  - lily58_rgb_left
+  - lily58_rgb_right

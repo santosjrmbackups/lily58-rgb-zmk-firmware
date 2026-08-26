@@ -1,0 +1,4 @@
+*.uf2
+firmware/*.zip
+.DS_Store
+Thumbs.db

@@ -1,5 +1,7 @@
 # Lily58 RGB Wireless firmware (ZMK)
 
+Paused mid-setup. See [SESSION.md](SESSION.md) for flash status and the right-OLED issue.
+
 ZMK firmware for a **Lily58 RGB wireless** kit (PandaKB-style: nRF52840 / nice!nano clone, per-key RGB, 0.91" OLED).
 
 [kata0510/Lily58](https://github.com/kata0510/Lily58) is **hardware** (PCB/case). Stock Lily58 Pro is **wired QMK**. This wireless RGB board needs **ZMK**.

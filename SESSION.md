@@ -51,6 +51,44 @@ Checks not finished:
 
 RGB toggle: inner extra key on the right, next to N.
 
+## Keymap currently on the board
+
+Source: `config/lily58_rgb.keymap`. 58 keys: 6×4 alphas + 4 thumbs per side, plus inner extra keys (mute / RGB, often encoder positions).
+
+Layers:
+
+- **0 default** — US QWERTY, numbers on the top row
+- **1 lower** — hold left inner thumb (`LOWER`)
+- **2** — hold right inner thumb (comment says RAISE; bindings are RGB/BT, not a classic raise layer)
+- **3** — hold LOWER+RAISE together (ZMK Studio reserved; empty)
+
+Quirk: there is no separate raise/nav layer. `&mo 2` is the RGB “adjust” map. Both thumbs together do **not** get you those RGB keys; they get empty layer 3.
+
+```
+Default
+ESC  1  2  3  4  5                6  7  8  9  0  `
+TAB  Q  W  E  R  T                Y  U  I  O  P  -
+CTRL A  S  D  F  G                H  J  K  L  ;  '
+SHFT Z  X  C  V  B  MUTE    RGB   N  M  ,  .  /  SHFT
+            ALT GUI LOWER SPACE  ENTER RAISE BSPC GUI
+
+Lower (hold LOWER)
+BTCLR BT1 BT2 BT3 BT4 BT5              ·  ·  ·  ·  ·  ·
+F1    F2  F3  F4  F5  F6               F7 F8 F9 F10 F11 F12
+`     !   @   #   $   %                ^  &  *  (   )   ~
+·    EP_ON EP_OFF EP_TOG ·  ·  ·    ·  ·  _  +  {   }   |
+            ·   ·    ·     ·        ·    ·     ·    ·
+
+Layer 2 (hold RAISE) — RGB / BT
+BTCLR  BT1    BT2    BT3    BT4    BT5               · · · · · ·
+EP_TOG RGB_HUD RGB_HUI RGB_SAD RGB_SAI RGB_EFF        · · · · · ·
+·      RGB_BRD RGB_BRI ·      ·      ·               · · · · · ·
+·      ·      ·      ·      ·      ·   RGB_TOG    ·  · · · · · ·
+              ·      ·      ·      ·              ·  · · ·
+
+Encoders (if installed): left = vol up/down, right = page up/down.
+```
+
 ## How to program later
 
 - Live keymap: plug **left** half USB, open https://zmk.studio/ in Chrome/Edge

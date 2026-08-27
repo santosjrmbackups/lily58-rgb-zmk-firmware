@@ -36,7 +36,16 @@ Right-half build **does** include OLED (`CONFIG_ZMK_DISPLAY=y`, `CONFIG_SSD1306=
 
 Do **not** re-flash unless pairing or OLED work needs a clean wipe.
 
-## RGB: left pulses, right breathes smoothly
+## RGB flicker — fixed (I2S)
+
+Left (central) pulsed; right breathed smoothly. Bootloader/reset looked stable because the MCU stopped updating the strip. Screen off / unplugged did not help.
+
+Cause: nRF52 BLE radio on the central interrupting WS2812 **SPI**.
+Fix: `CONFIG_WS2812_STRIP_I2S=y` and I2S DMA on D1/P0.06 (clocks on unused D0/D4). Left confirmed smooth after flash.
+
+Still to do: flash matching I2S firmware on the **right** half. OLED currently off on the left (user removed the panel).
+
+## RGB: left pulses, right breathes smoothly (resolved)
 
 Left is ZMK central (USB + host BLE + OLED). Bootloader looks stable because ZMK stops updating the strip (LEDs freeze).
 

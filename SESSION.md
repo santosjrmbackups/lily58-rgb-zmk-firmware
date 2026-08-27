@@ -43,7 +43,9 @@ Left (central) pulsed; right breathed smoothly. Bootloader/reset looked stable b
 Cause: nRF52 BLE radio on the central interrupting WS2812 **SPI**.
 Fix: `CONFIG_WS2812_STRIP_I2S=y` and I2S DMA on D1/P0.06 (clocks on unused D0/D4). Left confirmed smooth after flash.
 
-Still to do: flash matching I2S firmware on the **right** half. OLED currently off on the left (user removed the panel).
+Right I2S flash done. Left flickered again once the right half joined (central radio = host + split).
+
+Next firmware: **right is central**, left is peripheral. USB/BT host = **right** half. Settings-reset both, then flash left/right.
 
 ## RGB: left pulses, right breathes smoothly (resolved)
 

@@ -36,6 +36,14 @@ Right-half build **does** include OLED (`CONFIG_ZMK_DISPLAY=y`, `CONFIG_SSD1306=
 
 Do **not** re-flash unless pairing or OLED work needs a clean wipe.
 
+## RGB: left pulses, right breathes smoothly
+
+Left is ZMK central (USB + host BLE + OLED). Display was on the system thread, which starves WS2812 updates.
+
+Firmware change in `config/lily58_rgb.conf`: dedicated display work queue + 50ms OLED tick. Rebuild, then reflash **both** halves.
+
+If left still pulses on USB but is smooth on battery, it is current draw on the left LED chain.
+
 ## Open issue
 
 **Right OLED is blank.** Not expected on this firmware. Left-only screens are common on *other* Lily58 builds; this one enables both.

@@ -1,0 +1,5 @@
+if(CONFIG_ZMK_RGB_UNDERGLOW)
+  zephyr_library()
+  zephyr_library_sources(rgb_boot_solid.c)
+  zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)
+endif()

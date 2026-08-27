@@ -19,6 +19,21 @@
             then-layer = <3>;
         };
     };
+
+    macros {
+        /* Solid/static + sat 0. RGB_COLOR_HSB alone does not change effect, so
+         * spectrum/swirl still rainbows when you pick white. RGB_EFS 0 = solid. */
+        rgb_solid: rgb_solid {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings
+                = <&macro_tap &rgb_ug RGB_COLOR_HSB(0,0,40)>
+                , <&macro_tap &rgb_ug RGB_EFS_CMD 0>
+                ;
+        };
+    };
     keymap {
         compatible = "zmk,keymap";
 
@@ -62,19 +77,29 @@
 // ----------------------------------------------------------------------------------------------------------------------------
 // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
 // | EXTPWR | RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
-// |        | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
-// |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
+// |        | RGB_BRD | RGB_BRI | SOLID  |         |         |                  |      |      |       |      |       |       |
+// |SYS_RST |         |         |         |         |         |        | |      |      |      |       |      |       |       |
 //                    |         |         |         |         |         | |      |      |      |       |      |
             bindings = <
 &bt BT_CLR        &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4                            &trans &trans &trans &trans &trans &trans
 &ext_power EP_TOG &rgb_ug RGB_HUD &rgb_ug RGB_HUI &rgb_ug RGB_SAD &rgb_ug RGB_SAI &rgb_ug RGB_EFF                         &trans &trans &trans &trans &trans &trans
-&trans             &rgb_ug RGB_BRD &rgb_ug RGB_BRI &rgb_ug RGB_COLOR_HSB(0,0,100) &trans &trans                                   &trans &trans &trans &trans &trans &trans
-&trans             &trans           &trans           &trans           &trans           &trans            &trans &trans  &trans &trans &trans &trans &trans &trans
-                                  &trans           &trans           &trans           &trans            &trans           &trans  &trans &trans &trans &trans
+&trans             &rgb_ug RGB_BRD &rgb_ug RGB_BRI &rgb_solid        &trans &trans                                   &trans &trans &trans &trans &trans &trans
+&sys_reset         &trans           &trans           &trans           &trans           &trans            &trans &trans  &trans &trans &trans &trans &trans &trans
+                                  &trans           &trans           &trans           &trans            &trans           &trans  &trans &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
-         extra1 { status = "reserved"; };
+        /* LOWER+RAISE together. sys_reset reboots; boot hook then writes solid
+         * RGB over EEPROM. Full settings wipe is still settings_reset UF2. */
+        extra1 {
+            bindings = <
+&sys_reset &trans &trans &trans     &trans &trans                     &trans &trans &trans &trans &trans &trans
+&trans     &trans &trans &trans     &trans &trans                     &trans &trans &trans &trans &trans &trans
+&trans     &trans &trans &rgb_solid &trans &trans                     &trans &trans &trans &trans &trans &trans
+&sys_reset &trans &trans &trans     &trans &trans    &trans   &trans  &trans &trans &trans &trans &trans &trans
+                           &trans    &trans &trans    &trans   &trans  &trans &trans &trans
+            >;
+        };
 
         extra2 { status = "reserved"; };
 

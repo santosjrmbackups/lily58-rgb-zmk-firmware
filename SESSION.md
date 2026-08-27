@@ -38,11 +38,12 @@ Do **not** re-flash unless pairing or OLED work needs a clean wipe.
 
 ## RGB: left pulses, right breathes smoothly
 
-Left is ZMK central (USB + host BLE + OLED). Display was on the system thread, which starves WS2812 updates.
+Left is ZMK central (USB + host BLE + OLED). Bootloader looks stable because ZMK stops updating the strip (LEDs freeze).
 
-Firmware change in `config/lily58_rgb.conf`: dedicated display work queue + 50ms OLED tick. Rebuild, then reflash **both** halves.
+Tried: dedicated OLED thread (still pulsed).
+Next: remove Studio USB-UART on left, drop BLE TX from +8 dBm to default. Rebuild and reflash both.
 
-If left still pulses on USB but is smooth on battery, it is current draw on the left LED chain.
+Quick test: unplug left USB, run on battery + Bluetooth. If it smooths, the hitch is USB/radio load.
 
 ## Open issue
 

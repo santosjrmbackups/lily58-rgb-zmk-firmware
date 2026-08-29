@@ -38,6 +38,7 @@
         compatible = "zmk,keymap";
 
         default_layer {
+            display-name = "Base";
 // ------------------------------------------------------------------------------------------------------------
 // |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   `   |
 // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
@@ -56,6 +57,7 @@
         };
 
         lower_layer {
+            display-name = "Lower";
 // ------------------------------------------------------------------------------------------------------------
 // | BTCLR | BT1 | BT2 |  BT3 |  BT4 |  BT5 |                   |      |       |       |      |       |       |
 // |  F1   |  F2 |  F3 |  F4  |  F5  |  F6  |                   |  F7  |  F8   |  F9   |  F10 |  F11  |  F12  |
@@ -74,6 +76,7 @@
         };
 
         adjust_layer {
+            display-name = "RGB";
 // ----------------------------------------------------------------------------------------------------------------------------
 // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
 // | EXTPWR | RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
@@ -92,6 +95,7 @@
         /* LOWER+RAISE together. sys_reset reboots; boot hook then writes solid
          * RGB over EEPROM. Full settings wipe is still settings_reset UF2. */
         extra1 {
+            display-name = "Reset";
             bindings = <
 &sys_reset &trans &trans &trans     &trans &trans                     &trans &trans &trans &trans &trans &trans
 &trans     &trans &trans &trans     &trans &trans                     &trans &trans &trans &trans &trans &trans

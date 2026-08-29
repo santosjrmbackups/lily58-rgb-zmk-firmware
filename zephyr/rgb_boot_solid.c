@@ -1,7 +1,13 @@
+#include <zephyr/device.h>
+#include <zephyr/devicetree.h>
 #include <zephyr/init.h>
 #include <zephyr/kernel.h>
 
 #include <zmk/rgb_underglow.h>
+
+#if IS_ENABLED(CONFIG_ZMK_EXT_POWER)
+#include <drivers/ext_power.h>
+#endif
 
 /* Neutral gray/white: hue unused at sat 0. Brightness 40 of 100, then scaled
  * by CONFIG_ZMK_RGB_UNDERGLOW_BRT_MAX (80) so white does not brown out. */
@@ -20,8 +26,19 @@ static void rgb_apply_solid_neutral(void) {
     zmk_rgb_underglow_on();
 }
 
+static void rgb_boot_enable_oled_power(void) {
+#if IS_ENABLED(CONFIG_ZMK_EXT_POWER) && DT_HAS_COMPAT_STATUS_OKAY(zmk_ext_power_generic)
+    const struct device *ext_power = DEVICE_DT_GET(DT_INST(0, zmk_ext_power_generic));
+    if (device_is_ready(ext_power)) {
+        /* nice!nano P0.13 FET. Saved EP_OFF after a crash blacks both OLEDs. */
+        ext_power_enable(ext_power);
+    }
+#endif
+}
+
 static void rgb_boot_solid_work_fn(struct k_work *work) {
     ARG_UNUSED(work);
+    rgb_boot_enable_oled_power();
     rgb_apply_solid_neutral();
 }
 
